@@ -1,0 +1,39 @@
+local notifyCount = 0  -- Initialize notification count
+
+-- Define a function to check if a value is a number
+local function isNumber(value)
+    return type(value) == "number"
+end
+
+-- Define the notify function
+function notify(text, text2, length)
+    task.spawn(function()
+        local LnotifyCount = notifyCount + 1
+        notifyCount = notifyCount + 1
+
+        -- Display the notification text
+        if text2 then
+            print(text)  -- Assuming 'Title_2.Text = text'
+            print(text2) -- Assuming 'Text_2.Text = text2'
+        else
+            print('Notification') -- Assuming 'Title_2.Text = "Notification"'
+            print(text)          -- Assuming 'Text_2.Text = text'
+        end
+
+        -- Wait for the specified length or default to 10 seconds
+        if length and isNumber(length) then
+            wait(length)
+        else
+            wait(10)
+        end
+
+        -- Reset notifyCount when the current notification is the last one displayed
+        if LnotifyCount == notifyCount then
+            notifyCount = 0
+            print("Notification ended") -- Placeholder for notification end logic
+        end
+    end)
+end
+
+-- Call the notify function with "Hello World" message
+notify("Hello World", nil, 5)  -- Display "Hello World" for 5 seconds
